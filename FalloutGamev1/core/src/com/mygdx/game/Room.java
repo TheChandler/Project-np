@@ -13,7 +13,7 @@ public class Room {
     public Room(float x,float y,String type){
         totalAmount=1000;
         amountDone=0;
-        increaseAmount=1;
+        increaseAmount=10;
         roomLength=500;
         this.type=type;
         this.x=x;

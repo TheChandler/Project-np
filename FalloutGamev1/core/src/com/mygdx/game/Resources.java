@@ -8,12 +8,15 @@ public class Resources {
     public static int power=0,water=0,food=0,maxPower=1000,maxWater=1000,maxFood=1000;
     public static void addPower(int p){
         power+=p;
+        power=Math.min(power,maxPower);
     }
     public static void addWater(int w ){
         water+=w;
+        water=Math.min(water,maxWater);
     }
     public static void addFood(int f){
         food+=f;
+        food=Math.min(food,maxFood);
     }
     public static void addMaxPower(int p){
         maxPower+=p;
