@@ -10,6 +10,8 @@ public class Room {
     private float roomLength;
     private String type;
     private float x,y;
+    Color backgroundColor;
+    Color progressColor;
     public Room(float x,float y,String type){
         totalAmount=1000;
         amountDone=0;
@@ -19,6 +21,16 @@ public class Room {
         this.x=x;
         this.y=y;
 
+        if (this.type.compareTo("POWER")==0){
+            backgroundColor=Colors.darkRed;
+            progressColor=(Color.RED);
+        }else if (this.type.compareTo("WATER")==0){
+            backgroundColor=Colors.darkBlue;
+            progressColor=(Color.BLUE);
+        }else if (this.type.compareTo("FOOD")==0){
+            backgroundColor=Colors.darkGreen;
+            progressColor=(Color.GREEN);
+        }
     }
     public void update(){
         amountDone+=increaseAmount;
@@ -34,13 +46,9 @@ public class Room {
         }
     }
     public void render(ShapeRenderer sr){
-        if (this.type.compareTo("POWER")==0){
-            sr.setColor(Color.RED);
-        }else if (this.type.compareTo("WATER")==0){
-            sr.setColor(Color.BLUE);
-        }else if (this.type.compareTo("FOOD")==0){
-            sr.setColor(Color.GREEN);
-        }
+        sr.setColor(backgroundColor);
+        sr.rect(x,y,500,250);
+        sr.setColor(progressColor);
         sr.rect(x,y,roomLength*(amountDone/totalAmount),250);
     }
 }

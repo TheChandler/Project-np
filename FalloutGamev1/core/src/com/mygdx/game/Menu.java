@@ -33,19 +33,15 @@ public class Menu {
             close();
         }else if (buttons[1].isOver(mouse,background.box.x,background.box.y)){
             roomSlot.room=new Room(roomSlot.button.box.x,roomSlot.button.box.y,"POWER");
-            roomSlot.button.box.setColor(Colors.darkRed);
             close();
         }else if (buttons[2].isOver(mouse,background.box.x,background.box.y)){
             roomSlot.room=new Room(roomSlot.button.box.x,roomSlot.button.box.y,"WATER");
-            roomSlot.button.box.setColor(Colors.darkBlue);
             close();
         }else if (buttons[3].isOver(mouse,background.box.x,background.box.y)){
             roomSlot.room=new Room(roomSlot.button.box.x,roomSlot.button.box.y,"FOOD");
-            roomSlot.button.box.setColor(Colors.darkGreen);
             close();
         }else if (buttons[4].isOver(mouse,background.box.x,background.box.y)){
             roomSlot.room=null;
-            roomSlot.button.box.setColor(new Color(.5f,.5f,.5f,1));
             close();
         }
     }
