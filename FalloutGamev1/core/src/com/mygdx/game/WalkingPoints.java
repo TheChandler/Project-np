@@ -8,14 +8,25 @@ public class WalkingPoints {
     int counter;
     public WalkingPoints(){
         points =new WalkingPoint[1000];
-        points[0]=new WalkingPoint(100,2345);
-        points[1]=new WalkingPoint(400,2345);
-        counter=2;
-        connectPoints(0,1);
+        counter=1;
+        points[0]=new WalkingPoint( -100,10);
     }
     public void addPoint(Vector3 point){
         points[counter]=new WalkingPoint(point.x,point.y);
         counter++;
+    }
+    public void removePoint(Vector3 point){
+        for (int i=0;i<counter;i++){
+            if (points[i].position.dst(point)==0){
+                removePoint(i);
+            }
+        }
+    }
+    public void removePoint(int r){
+        for (int i=r;i<counter;i++){
+            points[i]=points[i+1];
+        }
+        counter--;
     }
     public void connectPoints(int one,int two){
         points[one].addConnection(points[two]);

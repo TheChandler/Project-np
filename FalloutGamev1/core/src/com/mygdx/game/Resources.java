@@ -5,7 +5,11 @@ import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.Vector3;
 
 public class Resources {
-    public static int power=0,water=0,food=0,maxPower=1000,maxWater=1000,maxFood=1000;
+    public static float power=0,water=0,food=0,maxPower=1,maxWater=1,maxFood=1;
+    public static Main main;
+    public static void setMain(Main m){
+        main=m;
+    }
     public static void addPower(int p){
         power+=p;
         power=Math.min(power,maxPower);
@@ -17,6 +21,34 @@ public class Resources {
     public static void addFood(int f){
         food+=f;
         food=Math.min(food,maxFood);
+        if (food==maxFood){
+            main.people.addPerson();
+            food=0;
+        }
+    }
+    public static boolean buyWithPower(float p){
+        if (power>=p){
+            power-=p;
+            return true;
+        }else{
+            return false;
+        }
+    }
+    public static boolean buyWithWater(float w){
+        if (water>=w){
+            water-=w;
+            return true;
+        }else{
+            return false;
+        }
+    }
+    public static boolean buyWithFood(float f){
+        if (food>=f){
+            food-=f;
+            return true;
+        }else{
+            return false;
+        }
     }
     public static void addMaxPower(int p){
         maxPower+=p;

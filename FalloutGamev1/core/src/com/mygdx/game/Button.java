@@ -1,5 +1,6 @@
 package com.mygdx.game;
 
+import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.Vector3;
 
 
@@ -21,5 +22,8 @@ public class Button {
         if (mouse.x > box.x+x && mouse.x < box.x +x+ box.width && mouse.y > box.y+y && mouse.y < box.y +y+ box.height)
             return true;
         return false;
+    }
+    public void render(ShapeRenderer sr){
+        this.box.render(sr);
     }
 }

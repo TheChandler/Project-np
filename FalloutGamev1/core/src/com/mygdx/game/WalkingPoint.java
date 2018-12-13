@@ -6,7 +6,7 @@ import com.badlogic.gdx.math.Vector3;
 
 public class WalkingPoint {
     Vector3 position;
-    WalkingPoint[] connectedTo;
+    private WalkingPoint[] connectedTo;
     public WalkingPoint(float x, float y){
         position=new Vector3(x,y,0);
         connectedTo=new WalkingPoint[4];

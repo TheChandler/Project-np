@@ -8,11 +8,14 @@ public class Menu {
     Button background;
     boolean isOpen;
     RoomSlot roomSlot;
+    float roomSlotx,roomSloty;
     Button[] buttons;
     public Menu (){
+        roomSlotx=0;
+        roomSloty=0;
         isOpen=false;
         background=new Button(new Box(860,0,800,900));
-        background.box.setColor(new Color(1,.5f,.5f,255));
+        background.box.setColor(new Color(.5f,.5f,.75f,255));
         setupButtons();
     }
     public void setupButtons(){
@@ -28,28 +31,54 @@ public class Menu {
         buttons[4]=new Button(new Box(100,400,600,90));
         buttons[4].box.setColor(Color.GRAY);
     }
-    public void click(Vector3 mouse){
-        if (buttons[0].isOver(mouse,background.box.x,background.box.y)){
-            close();
-        }else if (buttons[1].isOver(mouse,background.box.x,background.box.y)){
-            roomSlot.room=new Room(roomSlot.button.box.x,roomSlot.button.box.y,"POWER");
-            close();
-        }else if (buttons[2].isOver(mouse,background.box.x,background.box.y)){
-            roomSlot.room=new Room(roomSlot.button.box.x,roomSlot.button.box.y,"WATER");
-            close();
-        }else if (buttons[3].isOver(mouse,background.box.x,background.box.y)){
-            roomSlot.room=new Room(roomSlot.button.box.x,roomSlot.button.box.y,"FOOD");
-            close();
-        }else if (buttons[4].isOver(mouse,background.box.x,background.box.y)){
-            roomSlot.room=null;
-            close();
+    public int click(Vector3 mouse,Main main){
+        int choice = getSelected(mouse);
+        switch (choice) {
+            case 0:
+                close();
+                break;
+            case 1:
+                roomSlot.room = new Room(roomSlotx,roomSloty, "POWER");
+                main.wp.addPoint(new Vector3(roomSlotx + 250, roomSloty + 10, 0));
+                close();
+                break;
+            case 2:
+                roomSlot.room = new Room(roomSlotx,roomSloty, "WATER");
+                main.wp.addPoint(new Vector3(roomSlotx + 250, roomSloty + 10, 0));
+                close();
+                break;
+            case 3:
+                roomSlot.room = new Room(roomSlotx,roomSloty, "FOOD");
+                main.wp.addPoint(new Vector3(roomSlotx + 250, roomSloty + 10, 0));
+                close();
+                break;
+            case 4:
+                if (roomSlot.room != null) {
+                    if (roomSlot.room.dispose()) {
+                        roomSlot.room = null;
+                        main.wp.removePoint(new Vector3(roomSlotx + 250, roomSloty + 10, 0));
+                        close();
+                    }
+                }
+                break;
         }
+        return -1;
+
     }
-    public void open(RoomSlot rs){
-        System.out.println("Opening box: "+rs.button.box);
+    public int getSelected(Vector3 mouse){
+        for (int i =0;i<buttons.length;i++){
+            if (buttons[i].isOver(mouse,background.box.x,background.box.y)){
+                return i;
+            }
+        }
+        return -1;
+    }
+    public void open(float x,float y,RoomSlot rs){
+        background.box.x=x+510;
+        background.box.y=y-250;
         roomSlot=rs;
-        background.box.x=rs.button.box.x+510;
-        background.box.y=rs.button.box.y-250;
+        roomSlotx=x;
+        roomSloty=y;
         isOpen=true;
     }
     public void close(){
